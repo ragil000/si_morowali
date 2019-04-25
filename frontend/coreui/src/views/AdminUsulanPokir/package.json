@@ -1,0 +1,6 @@
+{
+  "name": "AdminUsulanPokir",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./AdminUsulanPokir.js"
+}

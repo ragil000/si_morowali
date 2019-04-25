@@ -1,0 +1,6 @@
+{
+  "name": "RenstraKabCreate",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./RenstraKabCreate.js"
+}

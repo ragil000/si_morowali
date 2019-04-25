@@ -1,0 +1,6 @@
+{
+  "name": "IndikatorCreate",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./IndikatorCreate.js"
+}

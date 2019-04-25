@@ -1,0 +1,6 @@
+{
+  "name": "BidangCreate",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./BidangCreate.js"
+}

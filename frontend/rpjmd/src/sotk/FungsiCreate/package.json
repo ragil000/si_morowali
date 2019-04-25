@@ -1,0 +1,6 @@
+{
+  "name": "FungsiCreate",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./FungsiCreate.js"
+}

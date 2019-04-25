@@ -1,0 +1,6 @@
+{
+    "apiRoot": "http://localhost/si_morowali/backend/eperencanaan/",
+    "apiMusrenbang": "http://localhost/si_morowali/backend/perencanaan/",
+    "apiSatuanHarga": "http://localhost/si_morowali/backend/satuanharga/",
+    "index": 1
+}
