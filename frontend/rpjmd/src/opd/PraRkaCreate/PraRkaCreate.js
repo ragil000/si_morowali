@@ -72,7 +72,7 @@ class PraRkaCreate extends Component {
 
 
     // console.log("sd");
-    console.log(this.props.data);
+    // console.log(this.props.data);
     // console.log("sd");
   }
 

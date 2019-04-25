@@ -381,13 +381,14 @@ class CrudController extends CI_Controller {
                 $this->load->model('opd/PraRkaModel');
                 if($name == "opd_renja_awal"){
                     $post['name'] = 'opd';
+                    // $kirim['opd'] = true; 
                 }
                 if($name == "opd_pra_rka_perubahan"){
                     $post['jenis'] = 'perubahan';
                 }
                 // print_r($post);
-                $linkSavePDF = 'opd/rka';
-                $nameFile = 'Rka';
+                $linkSavePDF = 'opd/rka-pra';
+                $nameFile = 'rka';
                 
                 $data = $this->PraRkaModel->getAll($page, $search, $post);
                 $dataAll = array();
@@ -497,6 +498,10 @@ class CrudController extends CI_Controller {
             
             $dataOpd = @$this->DataModel->getDataOpd($post['user_id'])[0];
             $kirim['dataOpd'] = $dataOpd;
+
+            if($kirim['dataOpd'] != null || $kirim['dataOpd'] != 0 || $kirim['dataOpd'] != ''){
+                $kirim['opd'] = true;
+            }
         }
         
         $kirim['jumlahAll'] = $jumDataAll;
@@ -1281,7 +1286,7 @@ class CrudController extends CI_Controller {
                 }
                 $excel_row++;
             }
-        }else if($name == 'Rka'){
+        }else if($name == 'rka'){
             $this->load->library("excel");
 
             $fileName = $name."-".time();
@@ -1328,60 +1333,177 @@ class CrudController extends CI_Controller {
             $excel_row = $row;
             $nomor = 1;
             $countRow = 0;
-        // print_r($data);
+            // echo "<pre>";
+            // print_r($data);
+            // echo "</pre>";
             $tahun = 1+$this->tahun-@$data[0]['rpjmd_tahun'];
             foreach($data as $row)
             {
                 if($countRow == 0){
                     $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, "Urusan Pemerintahan");
                     $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, ":");
-                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row['Nm_Sub_Unit']);
-                    $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row['Nm_Sub_Unit']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row['Kd_Urusan']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row['Kd_Urusan']);
                 }else if($countRow == 1){
                     $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, "Organisasi");
                     $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, ":");
-                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row['Nm_Sub_Unit']);
-                    $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row['Nm_Sub_Unit']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row['Kd_Urusan']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row['Kd_Urusan']);
                 }else if($countRow == 2){
                     $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, "Unit Organisasi");
                     $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, ":");
-                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row['Nm_Sub_Unit']);
-                    $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row['Nm_Sub_Unit']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row['Kd_Urusan']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row['Kd_Urusan']);
                 }else if($countRow == 3){
                     $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, "Sub Unit Organisasi");
                     $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, ":");
-                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row['Nm_Sub_Unit']);
-                    $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row['Nm_Sub_Unit']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row['Kd_Urusan']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row['Kd_Urusan']);
                 }else if($countRow == 4){
                     $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, "Program");
                     $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, ":");
-                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row['Nm_Sub_Unit']);
-                    $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row['Nm_Sub_Unit']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row['Kd_Urusan']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row['Kd_Urusan']);
                 }else if($countRow == 5){
                     $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, "Kegiatan");
                     $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, ":");
-                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row['Nm_Sub_Unit']);
-                    $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row['Nm_Sub_Unit']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row['Kd_Urusan']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row['Kd_Urusan']);
                 }else if($countRow == 6){
                     $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, "Lokasi Kegiatan");
                     $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, ":");
-                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row['Nm_Sub_Unit']);
-                    $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row['Nm_Sub_Unit']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row['Kd_Urusan']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row['Kd_Urusan']);
                 }else if($countRow == 7){
                     $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, "Jumlah Tahun n - 1");
                     $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, ":");
-                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row['Nm_Sub_Unit']);
-                    $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row['Nm_Sub_Unit']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row['Kd_Urusan']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row['Kd_Urusan']);
                 }else if($countRow == 8){
                     $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, "Jumlah Tahun n");
                     $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, ":");
-                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row['Nm_Sub_Unit']);
-                    $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row['Nm_Sub_Unit']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row['Kd_Urusan']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row['Kd_Urusan']);
                 }else if($countRow == 9){
                     $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, "Jumlah Tahun n + 1");
                     $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, ":");
-                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row['Nm_Sub_Unit']);
-                    $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row['Nm_Sub_Unit']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row['Kd_Urusan']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row['Kd_Urusan']);
+                }
+                
+                $countRow++;
+                $excel_row++;
+            }
+            $excel_row++; $excel_row++; $excel_row++;
+            $table_columns = array(
+               
+                array(
+                    "RENCANA KERJA DAN ANGGARAN",
+                    "",
+                    "",
+                ),
+                array(
+                    "Indikator",
+                    "Tolak Ukur Kinerja",
+                    "Target Kinerja",
+                )
+    
+            );
+
+            foreach($table_columns as $field)
+            {
+                $column = 0;
+                foreach($field as $field2){
+                    $object->getActiveSheet()->setCellValueByColumnAndRow($column, $excel_row, $field2);
+                    $column++;
+                }
+                $excel_row++;            
+            }
+
+            $countRow = 0;
+            foreach($data as $row)
+            {
+                if($countRow == 0){
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, "Capaian Program");
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, "");
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, "100%");
+                }else if($countRow == 1){
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, "Masukan");
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, "");
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, "Rp.");
+                }else if($countRow == 2){
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, "Keluaran");
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, "");
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, "");
+                }else if($countRow == 3){
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, "Hasil");
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, "");
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, "");
+                }else if($countRow == 4){
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, "Kelompok Sasaran Kegiatan : Kelompok Nelayan");
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, "");
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, "");
+                }
+                
+                $countRow++;
+                $excel_row++;
+            }
+
+            $table_columns = array(
+               
+                array(
+                    "Kode",
+                    "U r a i a n",
+                    "Rincian Penghitungan",
+                    "",
+                    "",
+                    "Jumlah (Rp)",
+                ),
+                array(
+                    "",
+                    "",
+                    "Volume",
+                    "Satuan",
+                    "Harga Satuan",
+                    "",
+                )
+    
+            );
+
+            foreach($table_columns as $field)
+            {
+                $column = 0;
+                foreach($field as $field2){
+                    $object->getActiveSheet()->setCellValueByColumnAndRow($column, $excel_row, $field2);
+                    $column++;
+                }
+                $excel_row++;            
+            }
+
+            $countRow = 0;
+            foreach($data as $row)
+            {
+                if($row['Kd_Rek_1'] != ''){
+                    if($row['Kd_Rek_5'] != ''){
+                        $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row['Kd_Rek_1']." ".$row['Kd_Rek_2']." ".$row['Kd_Rek_3']." ".$row['Kd_Rek_4']." ".$row['Kd_Rek_5']);
+                        $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row['nama_belanja']);
+                        $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, @$row['total']);
+                    }else if($row['Kd_Rek_3'] != '' && $row['Kd_Rek_4'] == ''){
+                        $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row['Kd_Rek_1']." ".$row['Kd_Rek_2']." ".$row['Kd_Rek_3']." ".$row['Kd_Rek_4']." ".$row['Kd_Rek_5']);
+                        $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row['nama_belanja']);
+                        $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, @$row['total']);
+                    }else{
+                        $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row['Kd_Rek_1']." ".$row['Kd_Rek_2']." ".$row['Kd_Rek_3']." ".$row['Kd_Rek_4']." ".$row['Kd_Rek_5']);
+                        $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row['nama_belanja']);
+                        $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, @$row['total']);
+                    }
+                    
+                }else{
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row['komentar']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row['volume']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row['satuan_nama']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row['harga']);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, ($row['harga']+$row['volume']));
                 }
                 
                 $countRow++;

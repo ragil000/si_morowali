@@ -2,7 +2,7 @@
     <meta charset="utf-8" />
     <head></head>
     <body>
-        <h1>Data Indikator</h1>
+        <h1>Data RKA</h1>
         <table style="border-collapse: collapse; width:100%;">
 
             <tr>
